@@ -1,5 +1,6 @@
 package ru.kiradev.nasa.ui.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,11 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
-import ru.kiradev.nasa.R
 import ru.kiradev.nasa.databinding.FragmentPictureOfTheDayBinding
 import ru.kiradev.nasa.mvp.model.image.IImageLoader
 import ru.kiradev.nasa.mvp.presenter.PictureOfTheDayPresenter
@@ -24,7 +23,8 @@ import javax.inject.Inject
 class PictureOfTheDayFragment : MvpAppCompatFragment(), PictureView, BackButtonListener {
     private var binding: FragmentPictureOfTheDayBinding? = null
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
-    @Inject lateinit var imageLoader: IImageLoader<ImageView>
+    @Inject
+    lateinit var imageLoader: IImageLoader<ImageView>
 
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
@@ -68,6 +68,15 @@ class PictureOfTheDayFragment : MvpAppCompatFragment(), PictureView, BackButtonL
         binding?.ivPictureOfTheDay?.let { imageLoader.loadInto(url, it) }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
+    override fun setVideo(url: String?) {
+        binding?.wvPictureOfTheDay?.clearCache(true);
+        binding?.wvPictureOfTheDay?.clearHistory();
+        binding?.wvPictureOfTheDay?.settings?.javaScriptEnabled = true
+        binding?.wvPictureOfTheDay?.settings?.javaScriptCanOpenWindowsAutomatically = true
+        url?.let { binding?.wvPictureOfTheDay?.loadUrl(url) }
+    }
+
     override fun setPictureTitle(title: String?) {
         binding?.tvPictureTitle?.text = title
     }
@@ -79,7 +88,8 @@ class PictureOfTheDayFragment : MvpAppCompatFragment(), PictureView, BackButtonL
     override fun searchWiki() {
         binding?.tilWiki?.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://en.wikipedia.org/wiki/${binding?.etWiki?.text.toString()}")
+                data =
+                    Uri.parse("https://en.wikipedia.org/wiki/${binding?.etWiki?.text.toString()}")
             })
         }
     }
@@ -90,6 +100,14 @@ class PictureOfTheDayFragment : MvpAppCompatFragment(), PictureView, BackButtonL
 
     override fun hideBottomSheer() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    override fun showVideoView() {
+        binding?.wvPictureOfTheDay?.visibility = View.VISIBLE
+    }
+
+    override fun hideVideoView() {
+        binding?.wvPictureOfTheDay?.visibility = View.GONE
     }
 
 }

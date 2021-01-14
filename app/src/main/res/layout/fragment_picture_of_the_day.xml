@@ -19,9 +19,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_wiki"
+                android:padding="10dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
-                android:padding="10dp"
                 app:endIconCheckable="true"
                 app:endIconDrawable="@drawable/ic_wikipedia"
                 app:endIconMode="custom"
@@ -69,11 +69,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_picture_title"
                 tools:text="explanation" />
 
+            <WebView
+                android:id="@+id/wv_picture_of_the_day"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_wiki" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
 
-    <include layout="@layout/bottom_sheet_layout"  android:id="@+id/bottom_sheet_layout"/>
+    <include
+        android:id="@+id/bottom_sheet_layout"
+        layout="@layout/bottom_sheet_layout" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

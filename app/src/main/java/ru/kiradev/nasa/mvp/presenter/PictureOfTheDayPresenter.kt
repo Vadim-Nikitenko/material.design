@@ -31,7 +31,13 @@ class PictureOfTheDayPresenter() : MvpPresenter<PictureView>() {
         pictureRepo.getPictureOfTheDay()
             .observeOn(scheduler)
             .subscribe({
-                it.url.let { viewState.setPicture(it) }
+                if (it.mediaType == "video") {
+                    viewState.showVideoView()
+                    viewState.setVideo(it.url)
+                } else {
+                    viewState.hideVideoView()
+                    it.url.let { viewState.setPicture(it) }
+                }
                 viewState.setPictureTitle(it.title)
                 viewState.setPictureExplanation(it.explanation)
             }, {
