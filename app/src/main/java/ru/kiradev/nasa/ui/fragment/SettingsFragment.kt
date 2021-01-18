@@ -19,6 +19,8 @@ class SettingsFragment : MvpAppCompatFragment(), SettingsView, BackButtonListene
 
     companion object {
         fun newInstance() = SettingsFragment()
+        const val SP_KEY_THEME = "ThemeKey"
+        const val SP_KEY_THEME_STATE = "ThemeChanged"
     }
 
     @Inject
@@ -60,10 +62,8 @@ class SettingsFragment : MvpAppCompatFragment(), SettingsView, BackButtonListene
         }
     }
 
-    // нормально, что тут эта логика, а не в презентере? Или создавать какой-нибудь IPreferencesProvider
-    // который имплеменить в презентер и выносить эту логику туда?
     private fun setThemeSwitch() {
-        when (sharedPrefs.getInt("ThemeKey", 1)) {
+        when (sharedPrefs.getInt(SP_KEY_THEME, 1)) {
             1 -> binding?.switchDarkTheme?.isChecked = false
             2 -> binding?.switchDarkTheme?.isChecked = true
         }
@@ -75,14 +75,14 @@ class SettingsFragment : MvpAppCompatFragment(), SettingsView, BackButtonListene
     }
 
     override fun switchToDarkTheme() {
-        sharedPrefs.edit().apply { putInt("ThemeKey", 2) }.apply()
-        sharedPrefs.edit().apply { putBoolean("ThemeChanged", true) }.apply()
+        sharedPrefs.edit().apply { putInt(SP_KEY_THEME, 2) }.apply()
+        sharedPrefs.edit().apply { putBoolean(SP_KEY_THEME_STATE, true) }.apply()
         activity?.recreate()
     }
 
     override fun switchToDefaultTheme() {
-        sharedPrefs.edit().apply { putInt("ThemeKey", 1) }.apply()
-        sharedPrefs.edit().apply { putBoolean("ThemeChanged", true) }.apply()
+        sharedPrefs.edit().apply { putInt(SP_KEY_THEME, 1) }.apply()
+        sharedPrefs.edit().apply { putBoolean(SP_KEY_THEME_STATE, true) }.apply()
         activity?.recreate()
     }
 

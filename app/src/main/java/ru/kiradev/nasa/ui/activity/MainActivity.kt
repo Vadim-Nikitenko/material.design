@@ -11,6 +11,8 @@ import ru.kiradev.nasa.mvp.view.MainView
 import ru.kiradev.nasa.navigation.Screens
 import ru.kiradev.nasa.ui.App
 import ru.kiradev.nasa.ui.BackButtonListener
+import ru.kiradev.nasa.ui.fragment.SettingsFragment.Companion.SP_KEY_THEME
+import ru.kiradev.nasa.ui.fragment.SettingsFragment.Companion.SP_KEY_THEME_STATE
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.Screen
@@ -48,13 +50,13 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     private fun setupTheme() {
-        when(sharedPrefs.getInt("ThemeKey", 1)) {
+        when(sharedPrefs.getInt(SP_KEY_THEME, 1)) {
             1 -> setTheme(R.style.Theme_Nasa)
             2 -> setTheme(R.style.Theme_Nasa_Dark)
         }
-        if (sharedPrefs.getBoolean("ThemeChanged", false)) {
+        if (sharedPrefs.getBoolean(SP_KEY_THEME_STATE, false)) {
             router.replaceScreen(Screens.SettingsScreen())
-            sharedPrefs.edit().apply { putBoolean("ThemeChanged", false) }.apply()
+            sharedPrefs.edit().apply { putBoolean(SP_KEY_THEME_STATE, false) }.apply()
         }
     }
 
