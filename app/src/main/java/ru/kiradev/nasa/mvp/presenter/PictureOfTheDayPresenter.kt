@@ -9,16 +9,11 @@ import ru.kiradev.nasa.mvp.view.PictureView
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class PictureOfTheDayPresenter() : MvpPresenter<PictureView>() {
-
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var pictureRepo: IPictureOfTheDayRepo
-
-    @Inject
-    lateinit var scheduler: Scheduler
+class PictureOfTheDayPresenter @Inject constructor(
+    private val router: Router,
+    private val pictureRepo: IPictureOfTheDayRepo,
+    private val scheduler: Scheduler
+) : MvpPresenter<PictureView>() {
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -64,6 +59,14 @@ class PictureOfTheDayPresenter() : MvpPresenter<PictureView>() {
     }
 
     fun backClickBottomSheetOpened() {
-        viewState.hideBottomSheer()
+        viewState.hideBottomSheet()
+    }
+
+    fun bottomSheetExpanded() {
+        viewState.showBottomSheet()
+    }
+
+    fun bottomSheetCollapsed() {
+        viewState.hideBottomSheet()
     }
 }

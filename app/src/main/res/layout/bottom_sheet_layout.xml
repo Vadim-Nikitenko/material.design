@@ -3,21 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_sheet"
-    android:layout_width="match_parent"
-    android:layout_height="340dp"
-    android:background="@android:color/darker_gray"
-    android:orientation="vertical"
-    app:behavior_hideable="true"
+    style="@style/BottomSheetLayout"
     app:behavior_peekHeight="0dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <TextView
         android:id="@+id/tv_bottom_sheet_description"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="10dp"
-        tools:text="description"
-        android:textColor="@android:color/white" />
+        style="@style/BottomSheetDialog"
+        tools:text="description" />
 
 </LinearLayout>

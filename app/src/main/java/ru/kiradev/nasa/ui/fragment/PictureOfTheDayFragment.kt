@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.kiradev.nasa.databinding.FragmentPictureOfTheDayBinding
@@ -19,19 +20,41 @@ import ru.kiradev.nasa.mvp.view.PictureView
 import ru.kiradev.nasa.ui.App
 import ru.kiradev.nasa.ui.BackButtonListener
 import javax.inject.Inject
+import javax.inject.Provider
+
 
 class PictureOfTheDayFragment : MvpAppCompatFragment(), PictureView, BackButtonListener {
-    private var binding: FragmentPictureOfTheDayBinding? = null
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
-    @Inject
-    lateinit var imageLoader: IImageLoader<ImageView>
 
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
     }
 
-    val presenter by moxyPresenter {
-        PictureOfTheDayPresenter().apply { App.instance.appComponent.inject(this) }
+    @Inject
+    lateinit var imageLoader: IImageLoader<ImageView>
+
+    @Inject
+    lateinit var presenterProvider: Provider<PictureOfTheDayPresenter>
+
+    private var binding: FragmentPictureOfTheDayBinding? = null
+
+    private val presenter by moxyPresenter { presenterProvider.get() }
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+
+    private val bottomSheetCallBack: BottomSheetCallback = object : BottomSheetCallback() {
+        override fun onStateChanged(bottomSheet: View, newState: Int) {
+            when (newState) {
+                BottomSheetBehavior.STATE_EXPANDED -> presenter.bottomSheetExpanded()
+                BottomSheetBehavior.STATE_COLLAPSED -> presenter.bottomSheetCollapsed()
+            }
+        }
+        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        App.instance.appComponent.inject(this)
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -40,26 +63,26 @@ class PictureOfTheDayFragment : MvpAppCompatFragment(), PictureView, BackButtonL
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
-        App.instance.appComponent.inject(this)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.wikiIconClicked()
+        presenter?.wikiIconClicked()
         binding?.bottomSheetLayout?.bottomSheet?.let { setBottomSheetBehavior(it) }
         binding?.ivPictureOfTheDay?.setOnClickListener {
-            presenter.pictureOfTheDayClicked()
+            presenter?.pictureOfTheDayClicked()
         }
     }
 
     private fun setBottomSheetBehavior(bottomSheet: LinearLayout) {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallBack)
     }
 
     override fun backPressed(): Boolean {
-        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) presenter.backClickBottomSheetOpened()
-        else presenter.backClick()
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) presenter?.backClickBottomSheetOpened()
+        else presenter?.backClick()
         return true
     }
 
@@ -98,7 +121,7 @@ class PictureOfTheDayFragment : MvpAppCompatFragment(), PictureView, BackButtonL
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    override fun hideBottomSheer() {
+    override fun hideBottomSheet() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
