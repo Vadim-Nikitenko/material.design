@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Nasa</string>
+    <string name="search_wiki">Найти в Википедии</string>
+    <string name="wiki_helper_text">Поищите термин в википедии</string>
+</resources>
