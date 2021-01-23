@@ -6,6 +6,7 @@ import ru.kiradev.nasa.mvp.presenter.MainPresenter
 import ru.kiradev.nasa.mvp.presenter.PictureOfTheDayPresenter
 import ru.kiradev.nasa.ui.activity.MainActivity
 import ru.kiradev.nasa.ui.fragment.PictureOfTheDayFragment
+import ru.kiradev.nasa.ui.fragment.SettingsFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -21,7 +22,7 @@ import javax.inject.Singleton
 
 interface AppComponent {
     fun inject(mainPresenter: MainPresenter)
-    fun inject(pictureOfTheDayPresenter: PictureOfTheDayPresenter)
     fun inject(mainActivity: MainActivity)
     fun inject(pictureOfTheDayFragment: PictureOfTheDayFragment)
+    fun inject(settingsFragment: SettingsFragment)
 }

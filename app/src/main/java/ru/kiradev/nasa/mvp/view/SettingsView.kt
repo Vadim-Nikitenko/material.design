@@ -4,6 +4,7 @@ import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 
 @AddToEndSingle
-interface MainView: MvpView {
-    fun setBottomNavigation()
+interface SettingsView : MvpView {
+    fun switchToDarkTheme()
+    fun switchToDefaultTheme()
 }

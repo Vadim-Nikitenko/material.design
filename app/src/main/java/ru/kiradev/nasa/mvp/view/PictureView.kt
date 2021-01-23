@@ -11,7 +11,7 @@ interface PictureView: MvpView {
     fun setPictureExplanation(explanation: String?)
     fun searchWiki()
     fun showBottomSheet()
-    fun hideBottomSheer()
+    fun hideBottomSheet()
     fun showVideoView()
     fun hideVideoView()
 }
