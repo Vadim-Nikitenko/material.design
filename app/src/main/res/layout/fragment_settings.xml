@@ -27,4 +27,12 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_settings_title"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="tv_settings_title,switch_dark_theme"
+        tools:layout_editor_absoluteX="137dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

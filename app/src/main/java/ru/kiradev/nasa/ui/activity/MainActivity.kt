@@ -46,6 +46,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         App.instance.appComponent.inject(this)
+        setSupportActionBar(binding.toolbar)
         setupTheme()
         setContentView(binding.root)
         setBottomNavigation()
