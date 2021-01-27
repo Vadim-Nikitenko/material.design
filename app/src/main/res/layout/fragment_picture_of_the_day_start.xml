@@ -13,7 +13,8 @@
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/motion_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/fragment_picture_of_the_day_scene">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_wiki"
@@ -22,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/search_wiki"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -72,7 +73,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/til_wiki" />
-
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
     </androidx.core.widget.NestedScrollView>

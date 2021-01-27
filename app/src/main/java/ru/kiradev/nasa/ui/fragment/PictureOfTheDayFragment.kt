@@ -15,6 +15,7 @@ import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.kiradev.nasa.databinding.FragmentPictureOfTheDayBinding
+import ru.kiradev.nasa.databinding.FragmentPictureOfTheDayStartBinding
 import ru.kiradev.nasa.mvp.model.image.IImageLoader
 import ru.kiradev.nasa.mvp.presenter.PictureOfTheDayPresenter
 import ru.kiradev.nasa.mvp.view.PictureView
@@ -39,7 +40,7 @@ class PictureOfTheDayFragment : MvpAppCompatFragment(), PictureView, BackButtonL
     @Inject
     lateinit var presenterProvider: Provider<PictureOfTheDayPresenter>
 
-    private var binding: FragmentPictureOfTheDayBinding? = null
+    private var binding: FragmentPictureOfTheDayStartBinding? = null
 
     private val presenter by moxyPresenter { presenterProvider.get() }
 
@@ -66,7 +67,7 @@ class PictureOfTheDayFragment : MvpAppCompatFragment(), PictureView, BackButtonL
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
+        binding = FragmentPictureOfTheDayStartBinding.inflate(inflater, container, false)
         return binding?.root
     }
 

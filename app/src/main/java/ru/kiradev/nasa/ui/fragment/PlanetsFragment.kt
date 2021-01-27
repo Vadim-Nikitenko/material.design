@@ -32,7 +32,7 @@ class PlanetsFragment : MvpAppCompatFragment(), PlanetsView, BackButtonListener 
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,b
+        inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
