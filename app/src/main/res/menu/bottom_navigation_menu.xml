@@ -6,6 +6,11 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/main"/>
     <item
+        android:id="@+id/bn_planets"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_brightness_2_24"
+        android:title="@string/planets"/>
+    <item
         android:id="@+id/bn_settings"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_settings_24"

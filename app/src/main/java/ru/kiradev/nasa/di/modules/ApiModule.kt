@@ -11,7 +11,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.kiradev.nasa.mvp.model.api.IDataSource
-import ru.kiradev.nasa.mvp.model.constant.Constant.Companion.BASE_URL
 import ru.kiradev.nasa.mvp.model.network.INetworkStatus
 import ru.kiradev.nasa.ui.App
 import ru.kiradev.nasa.ui.network.AndroidNetworkStatus
@@ -22,9 +21,13 @@ import javax.inject.Singleton
 @Module
 class ApiModule {
 
+    @Named("baseUrl")
+    @Provides
+    fun baseUrl() = "https://api.nasa.gov/"
+
     @Singleton
     @Provides
-    fun api(@Named(BASE_URL) baseUrl: String, gson: Gson, client: OkHttpClient): IDataSource =
+    fun api(@Named("baseUrl") baseUrl: String, gson: Gson, client: OkHttpClient): IDataSource =
         Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)

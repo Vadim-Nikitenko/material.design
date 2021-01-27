@@ -6,4 +6,7 @@ import moxy.viewstate.strategy.alias.AddToEndSingle
 @AddToEndSingle
 interface MainView: MvpView {
     fun setBottomNavigation()
+    fun onNavMainClicked()
+    fun onNavPlanetsClicked()
+    fun onNavSettingsClicked()
 }

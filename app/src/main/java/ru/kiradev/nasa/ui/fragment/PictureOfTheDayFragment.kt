@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
+import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.kiradev.nasa.databinding.FragmentPictureOfTheDayBinding
@@ -31,6 +32,9 @@ class PictureOfTheDayFragment : MvpAppCompatFragment(), PictureView, BackButtonL
 
     @Inject
     lateinit var imageLoader: IImageLoader<ImageView>
+
+    @Inject
+    lateinit var scheduler: Scheduler
 
     @Inject
     lateinit var presenterProvider: Provider<PictureOfTheDayPresenter>

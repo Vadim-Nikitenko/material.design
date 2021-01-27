@@ -17,4 +17,10 @@ class MainPresenter : MvpPresenter<MainView>() {
 
     fun backClick() = router.exit()
 
+    fun navMainClicked() = viewState.onNavMainClicked().run { true }
+
+    fun navPlanetsClicked() = viewState.onNavPlanetsClicked().run { true }
+
+    fun navSettingsClicked() = viewState.onNavSettingsClicked().run { true }
+
 }
